@@ -32,31 +32,29 @@ public class Model {
 
     public void updateBoard(int x, int y)   {
 
+        playerTurns();
+
+        if (movesCount > 0) {
+            if (playerOne.isTurn()) {
+                board[x][y] = 'X';
+                movesCount--;
+                view.updateView(x, y, board[x][y], "Player Two's Turn");
+            } else {
+                board[x][y] = 'O';
+                movesCount--;
+                view.updateView(x, y, board[x][y], "Player One's Turn");
+            }
+        }
 
         won = checkWin(x, y);
-
-        if (won)    {
+        if (won) {
             movesCount = 0;
             if (playerOne.isTurn())
                 view.gameWon(playerOne.getName() + " has won.");
             else
                 view.gameWon(playerTwo.getName() + " has won.");
-        } else {
-            playerTurns();
-
-            if (movesCount > 0) {
-                if (playerOne.isTurn()) {
-                    board[x][y] = 'X';
-                    movesCount--;
-                    view.updateView(x, y, board[x][y], "Player Two's Turn");
-                } else {
-                    board[x][y] = 'O';
-                    movesCount--;
-                    view.updateView(x, y, board[x][y], "Player One's Turn");
-                }
-                playerTurns();
-            }
         }
+        playerTurns();
     }
 
     public boolean checkWin(int x, int y)   {
@@ -70,7 +68,7 @@ public class Model {
         }
 
         // Check Column
-        for (int i = 2; i > 0; i--) {
+        for (int i = 2; i >= 0; i--) {
             if(board[i][y] != symbol)  {
                 break;
             }
@@ -80,7 +78,7 @@ public class Model {
         }
 
         // Check Row
-        for (int i = 2; i > 0; i--) {
+        for (int i = 2; i >= 0; i--) {
             if(board[x][i] != symbol)  {
                 break;
             }
@@ -103,7 +101,7 @@ public class Model {
 
         // Check anti-diagonal
         if (x+y == boarddim - 1)   {
-            for (int i = 2; i > 0; i--) {
+            for (int i = 2; i >= 0; i--) {
                 if(board[i][(boarddim-1) - 1] != symbol)    {
                     break;
                 }
