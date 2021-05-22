@@ -18,6 +18,7 @@ public class Model {
     private View view;
 
     public Model()  {
+
         boarddim = 3;
         this.board = new char[boarddim][boarddim];
         movesCount = 9;
@@ -40,11 +41,11 @@ public class Model {
             if (playerOne.isTurn()) {
                 board[x][y] = 'X';
                 movesCount--;
-                view.updateView(x, y, board[x][y], "Player Two's Turn");
+                view.updateView(x, y, board[x][y], "Player Two's Turn");  // Calls view and updates it
             } else {
                 board[x][y] = 'O';
                 movesCount--;
-                view.updateView(x, y, board[x][y], "Player One's Turn");
+                view.updateView(x, y, board[x][y], "Player One's Turn");  // Calls view and updates it
             }
         }
 
@@ -116,6 +117,7 @@ public class Model {
             }
         }
 
+        return false;
         /*int countRow = 0;
         int countCol = 0;
         int countLDiag = 0;
@@ -141,7 +143,7 @@ public class Model {
                 || countLDiag == board.length || countRDiag == board.length)
             return true;
         */
-        return false;
+
     }
 
     public char[][] getBoard()  {
@@ -149,6 +151,8 @@ public class Model {
     }
 
     public void playerTurns()   {
+
+        // Keeps track of player turns
         if (movesCount % 2 != 0) {
             playerOne.updateTurn(true);
             playerTwo.updateTurn(false);
@@ -157,6 +161,7 @@ public class Model {
             playerOne.updateTurn(false);
         }
     }
+
 
     public void reset() {
         for (int row = 0; row < 3; row++)   {

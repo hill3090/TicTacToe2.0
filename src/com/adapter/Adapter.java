@@ -6,6 +6,11 @@ import com.view.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+    Decouples the view from the controller. When action happens, it moves from view to adapter to controller to model.
+    Model then updates view.
+ */
+
 public class Adapter implements ActionListener {
 
     private Controller c;
