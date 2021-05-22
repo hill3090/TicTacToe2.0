@@ -102,7 +102,7 @@ public class Model {
         // Check anti-diagonal
         if (x+y == boarddim - 1)   {
             for (int i = 2; i >= 0; i--) {
-                if(board[i][(boarddim-1) - 1] != symbol)    {
+                if(board[i][(boarddim-i) - 1] != symbol)    {
                     break;
                 }
                 if (i == 0) {
