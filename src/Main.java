@@ -2,6 +2,10 @@ import com.model.*;
 import com.view.*;
 import com.controller.*;
 
+/*
+    Initialize register all components of MVC model.
+ */
+
 public class Main {
 
     public static void main(String[] args)   {

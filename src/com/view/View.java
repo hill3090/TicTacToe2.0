@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/*
+    Displays the actual GUI through a JFrame with a JPanel and JButtons
+ */
 
 public class View {
 
