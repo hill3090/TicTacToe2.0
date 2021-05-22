@@ -32,8 +32,10 @@ public class Model {
 
     public void updateBoard(int x, int y)   {
 
+        // Figures out what player has a turn
         playerTurns();
 
+        // Implements moves and updated the board, followed by the view
         if (movesCount > 0) {
             if (playerOne.isTurn()) {
                 board[x][y] = 'X';
@@ -46,6 +48,7 @@ public class Model {
             }
         }
 
+        // Check the win conditions
         won = checkWin(x, y);
         if (won) {
             movesCount = 0;
@@ -54,6 +57,8 @@ public class Model {
             else
                 view.gameWon(playerTwo.getName() + " has won.");
         }
+
+        // Change turn to next player
         playerTurns();
     }
 
