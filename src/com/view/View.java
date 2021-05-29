@@ -39,6 +39,10 @@ public class View {
         reset.addActionListener(adapter)    ;
     }
 
+    public void computerClick(int row, int col) {
+        boxes[row][col].doClick();
+    }
+
     public void initialize()  {
         gui.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         gui.setTitle("Tic Tac Toe");
@@ -68,8 +72,8 @@ public class View {
     public void updateView(int x, int y, char symbol, String message) {
         status.setText(message);
         boxes[x][y].setText(Character.toString(symbol));
+        status.paintImmediately(status.getVisibleRect());
         boxes[x][y].setEnabled(false);
-
     }
 
     public int getX(ActionEvent e) {
@@ -110,7 +114,12 @@ public class View {
         boxes[x][y].setEnabled(true);
     }
 
+    public String getStatus()   {
+        return status.getText();
+    }
+
     public void gameWon(String message)   {
         status.setText(message);
+        status.paintImmediately(status.getVisibleRect());
     }
 }

@@ -14,5 +14,9 @@ public class Controller {
         model.updateBoard(x, y);
     }
 
+    public void updateModelComputer(int x, int y)   {
+        model.updateBoardComputer(x, y);
+    }
+
     public void updateModel()   { model.reset(); }
 }

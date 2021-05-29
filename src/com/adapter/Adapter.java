@@ -27,7 +27,11 @@ public class Adapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(v.isReset(e))  {
             c.updateModel();
-        } else {
+        } else if (v.getStatus() == "Computer's Turn") {
+            x = v.getX(e);
+            y = v.getY(e);
+            c.updateModelComputer(x, y);
+        } else  {
             x = v.getX(e);
             y = v.getY(e);
             c.updateModel(x, y);
