@@ -8,7 +8,7 @@ public class Model {
     private char[][] board;
     private int boarddim;
     private int movesCount;
-    private boolean won;
+    private int won;
     private Random rand;
     private int random;
     private int randomTwo;
@@ -25,7 +25,7 @@ public class Model {
 
         boarddim = 3;
         rand = new Random();
-        won = false;
+        won = 0;
 
         this.board = new char[boarddim][boarddim];
         movesCount = 9;
@@ -44,13 +44,16 @@ public class Model {
         playerTurns();
 
         // Implements moves and updated the board, followed by the view
-        if (movesCount > 0 && won == false) {
+        if (movesCount > 0 && won == 0) {
             board[x][y] = 'X';
             movesCount--;
             view.updateView(x, y, board[x][y], "Computer's Turn");
 
             won = checkWin(x, y);
-            if (won) {
+             if (won == -1) {
+                 view.gameWon("Tie game.");
+                 return;
+             } else if (won != 0) {
                 movesCount = 0;
                 if (playerOne.isTurn()) {
                     view.gameWon(playerOne.getName() + " has won.");
@@ -72,7 +75,11 @@ public class Model {
             view.updateView(x, y, board[x][y], "Player One's Turn");
 
             won = checkWin(x, y);
-            if (won) {
+
+            if (won == -1) {
+                view.gameWon("Tie game.");
+                return;
+            } else if (won != 0) {
                 movesCount = 0;
                 if (playerOne.isTurn())
                     view.gameWon(playerOne.getName() + " has won.");
@@ -87,17 +94,19 @@ public class Model {
         view.updateView(x, y, board[x][y], "Player One's Turn");
 
         won = checkWin(x, y);
-        if (won) {
+        if (won == -1) {
+            view.gameWon("Tie game.");
+            return;
+        } else if (won != 0) {
             movesCount = 0;
             if (playerOne.isTurn())
                 view.gameWon(playerOne.getName() + " has won.");
             else
                 view.gameWon(computer.getName() + " has won.");
         }
-
     }
 
-    public boolean checkWin(int x, int y)   {
+    public int checkWin(int x, int y)   {
 
         char symbol;
 
@@ -113,7 +122,10 @@ public class Model {
                 break;
             }
             if (i == 0) {
-                return true;
+                if (symbol == 'X')
+                    return 10;
+                else
+                    return -10;
             }
         }
 
@@ -123,36 +135,48 @@ public class Model {
                 break;
             }
             if (i == 0) {
-                return true;
+                if (symbol == 'X')
+                    return 10;
+                else
+                    return -10;
             }
         }
 
         // Check Diagonal
         if (x == y) {
-            for (int i = 2; i >= 0; i--)    {
-                if (board[i][i] != symbol)  {
+            for (int i = 2; i >= 0; i--) {
+                if (board[i][i] != symbol) {
                     break;
                 }
                 if (i == 0) {
-                    return true;
+                    if (symbol == 'X')
+                        return 10;
+                    else
+                        return -10;
                 }
             }
         }
 
         // Check anti-diagonal
-        if (x+y == boarddim - 1)   {
+        if (x+y == boarddim - 1) {
             for (int i = 2; i >= 0; i--) {
-                if(board[i][(boarddim-i) - 1] != symbol)    {
+                if (board[i][(boarddim - i) - 1] != symbol) {
                     break;
                 }
                 if (i == 0) {
-                    return true;
+                    if (symbol == 'X')
+                        return 10;
+                    else
+                        return -10;
                 }
             }
         }
 
-        return false;
+        if(movesCount == 0){
+            return -1;
+        }
 
+        return 0;
     }
 
     public char[][] getBoard()  {
@@ -180,6 +204,6 @@ public class Model {
             }
         }
         movesCount = 9;
-        won = false;
+        won = 0;
     }
 }
