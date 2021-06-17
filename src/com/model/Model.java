@@ -74,27 +74,13 @@ public class Model {
                     return;
                 }
             }
-
-            /*
-            random = rand.nextInt(boarddim);
-            randomTwo = rand.nextInt(boarddim);
-            while (board[random][randomTwo] != '\0')    {
-                random = rand.nextInt(boarddim);
-                randomTwo = rand.nextInt(boarddim);
-            }
-            board[random][randomTwo] = 'O';
-            view.computerClick(random, randomTwo);
-            movesCount--;
-            */
-
             compMove = findBestMove(board);
             board[compMove.row][compMove.col] = 'O';
-            movesCount--;
             view.computerClick(compMove.row, compMove.col);
+            movesCount--;
 
-
-            // Not sure why this is here....
-            view.updateView(x, y, board[x][y], "Player One's Turn");
+            // Not sure why this is here....left just in case.
+            //view.updateView(x, y, board[x][y], "Player One's Turn");
 
             won = checkWin(x, y);
 
